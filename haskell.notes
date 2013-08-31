@@ -1,0 +1,8 @@
+http://learnyouahaskell.com/chapters
+http://book.realworldhaskell.org/read/
+
+
+bash$ ghci
+-- load script at prompt
+Prelude> :l baby.hs
+
