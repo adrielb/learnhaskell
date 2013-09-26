@@ -103,15 +103,31 @@ data Polar2D = Polar2D Double Double
 
 Cartesian2D (sqrt 2) (sqrt 2) == Polar2D (pi / 4) 2
 
+-- The discriminated union
+-- an algebraic data type with multiple alternatives
+:{
+type Vector = (Double, Double)
+data Shape = Circle Vector Double
+           | Poly [Vector]
+:}
 
 
+-- Pattern Matching
+-- 1) If the type has more than one value constructor,
+--    we need to be able to tell which value constructor
+--    was used to create the value
+-- 2) If the value constructor has data components,
+--    we need to be able to extract those values
 
+-- Reproducing the not fuction
+let myNot True  = False
+let myNot False = True
 
+myNot False
 
+-- adds together the elements of a list
+let sumList (x:xs) = x + sumList xs
+let sumList []     = 0
 
-
-
-
-
-
+sumList [1,2]
 

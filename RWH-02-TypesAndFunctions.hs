@@ -3,7 +3,8 @@
 -- 2) static
 -- 3) automatically inferred
 --
--- Strong typing - type system guarantees that a program cannot contain certain kinds of errors
+-- Strong typing - type system guarantees that a program 
+--                 cannot contain certain kinds of errors
 -- Well typed - an expression that obeys the type rules
 -- ill typed - an expression that disobeys the type rules
 --
@@ -13,14 +14,17 @@
 -- The strength of a type system refers to how permissive a type system is
 -- A weaker type system treats more expressions as valid than a stronger type system
 --
--- Static typing - the compiler knows the type of every value and expression at compile time
+-- Static typing - the compiler knows the type of every
+--                 value and expression at compile time
 -- Duck typing - (python) an obj acts enough like another to be considered one
 -- Typeclasses - provides some dynamic typing to Haskell
 --
 -- Strong static typing make type errors at runtime impossible
--- Dynamically typed languages require large test suites to give assurances that type erros cannot occur 
+-- Dynamically typed languages require large test suites 
+-- to give assurances that type erros cannot occur 
 --
--- Type inference - Haskell compiler can deduce the types of all expressions in a program
+-- Type inference - Haskell compiler can deduce the types of
+--                  all expressions in a program
 -- 
 -- Common types:
 --   Char - unicode character
