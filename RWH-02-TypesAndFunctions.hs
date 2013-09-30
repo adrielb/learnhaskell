@@ -85,9 +85,138 @@ tail []
 [(Bool,[[Char]])]
 
 -- Functions over lists and tuples
+take 2 [1,2,3,4,5]
+drop 3 [1,2,3,4,5]
+
+-- for tuples, return first element of a pair
+fst (1, 'a')
+
+-- for tuples, return second element of a pair
+snd (1, 'a')
+
+-- type signuature only defined for pairs
+:type snd
+
+-- tuples arent immutable lists, unlike python
+-- passing an expression to a function
+-- function application is left associative:
+--   a b c d == (((a b) c ) d )
+head ( drop 4 "azerty" )
+
+-- Function types and purity
+-- read the '->' as "to", or "returns"
+:type lines
+-- signature reads: "lines has the type string to list-of-strings"
+lines "the quick\nbrown fox\njumps"
+-- side effects introduce dependencies btw the global state
+-- and the behavior of a function
+-- side effects are essentially invisible inputs to or ouputs from funcitons 
+--
+-- Pure Functions - a function that does not have side effects
+--                  the result of a function depends only on the inputs
+--                  we explicitly provide
+-- impure function type signature begins with 'IO'
+:type readFile
 
 
+-- Haskel source files and writing simple functions
+:load add.hs
+add 1 2
 
+-- change working directory
+:cd /tmp
+
+-- a Haskell function is a single expression, 
+-- not a sequence of statements 
+-- There is no 'return' keyword
+
+-- '=' symbol represents "meaning"
+-- the name on the left is defined to be the expression on the right
+
+
+-- Just what is a variable anyway
+-- a variable gives a name to an expression
+-- In Haskell, once a variable is bound to an expression,
+-- it will not change.
+
+-- in Assign.hs
+x = 10
+x = 11
+-- results in an error
+-- we cannot assign a value twice to 'x'
+
+-- Conditional Evaluation
+drop 2 "foobar"
+drop 4 "foobar"
+drop 4 [1,2]
+drop 0 [1,2]
+drop 7 []
+drop (-2) "foo"
+
+:type null
+:type (||)
+
+:{
+myDrop n xs = if n <= 0 || null xs
+              then xs
+              else myDrop (n-1) (tail xs)
+:}
+
+-- operators are ordinary functions
+-- || short circuits:
+--   if the left evaluates to true, 
+--   the right doesnt evaluate
+
+-- Lazy Evaluation
+
+let isOdd n = mod n 2 == 1
+:type isOdd
+
+isOdd (1+2)
+-- Strict evaluation - the arguments to a function are evaluated 
+--                     before the funciton is applied
+-- non-strict (lazy) evaluation - a promise that when the value of
+--                     an argument is needed, we'll compute it
+-- thunk - the record to keep track of unevaluated expressions
+
+print (myDrop 2 "abcd")
+
+:type 2<=0 || null "abcd"
+
+-- (||) short circuit is a result of lazy evaluation
+let newOr a b = if a then a else b
+newOr True (length [1..] > 0) 
+
+-- Polymorphism in Haskell
+last [1,2,3]
+last "baz"
+:type last
+-- type variables always start with a lower case letter
+-- variables of types and functions exists in separate contexts
+--   types live in type signatures
+--   variables live in normal expressions
+-- It is common in Haskell practice to keep type var short, one letter
+--
+-- Polymorphic - when a funciton has a type variable in its signature
+-- Parametric polymorphism - similar to templates in C++
+-- Not in Haskell:
+--   Subtype polymorphism - C++/Java subclassing mechanism
+--   Coercion polymorphism - automatic conversion btw types
+
+-- Reasoning about polymorphic functions
+:type fst
+fst :: (a,b) -> a
+-- the argument contains two type variables, 'a' and 'b'
+-- signifying that the elements can be of different types
+
+-- The type of a function of more than one argument
+:type take
+-- '->' is right associative
+take :: Int -> ([a] -> [a])
+-- read the type signature as a function that takes one argument,
+-- an Int and returns another function
+-- That other function takes a list argument and returns a list
+-- of the same type
 
 
 
