@@ -131,3 +131,5 @@ let sumList []     = 0
 
 sumList [1,2]
 
+-- Construction and deconstruction
+--

@@ -1,5 +1,5 @@
 -- Functors, Applicatives and Monads
---
+-- http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html
 --
 -- functions
 -- apply a function to a value
@@ -31,4 +31,15 @@ instance Functor Maybe where
   fmap func (Just val) = Just (func val)
   fmap func Nothing = Nothing
 :}
+
+fmap (+3) Nothing
+-- '$' infix notation
+(+3) <$> Nothing
+
+-- Lists are functors too
+instance Functor [] where
+    fmap = map
+
+-- Apply a function to another function
+fmap (+3) (+1)
 
