@@ -132,4 +132,18 @@ let sumList []     = 0
 sumList [1,2]
 
 -- Construction and deconstruction
---
+-- pattern matching acts as the inverse of construction
+
+let third (a, b, c) = c
+third (1,2,33)
+
+-- look inside a tuple and a list with a tuple
+let complicated (True, a, x:xs, 5) = (a, xs)
+complicated (True, 1, [1,2,3], 5)
+complicated (False, 1, [1,2,3], 5)
+
+-- pattern match on an algebraic data type
+let bookID      (Book id title authors) = id
+let bookTitle   (Book id title authors) = title
+let bookAuthors (Book id title authors) = authors
+
