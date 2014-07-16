@@ -56,3 +56,4 @@ getArray _ = Nothing
 
 isNull :: JValue -> Bool
 isNull v = v == JNull
+
