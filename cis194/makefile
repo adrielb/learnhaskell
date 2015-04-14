@@ -1,4 +1,4 @@
-run: ./01-intro.hs.x
+run: ./ex1.hs.x
 	./$<
 
 %.hs.x: %.hs
