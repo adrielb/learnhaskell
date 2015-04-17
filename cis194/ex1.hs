@@ -1,7 +1,17 @@
 main :: IO()
 main = do
     print "start"
-    ex1
+    ex3
+
+test :: IO()
+test = do
+    print $ (1201234 `div` 10 :: Int)
+    print $ (1201234 `mod` 10 :: Int)
+    print $ toD 32
+    print $ (myreverse [1,2,4] :: [Int])
+
+toD :: Integer -> [Integer]
+toD d = [d `mod` 10]
 
 ex1 :: IO()
 ex1 = do
@@ -20,4 +30,35 @@ toDigits d
 toDigitsRev d
     | d <= 0    = []
     | otherwise = d `mod` 10 : toDigitsRev (d `div` 10)
+
+myreverse :: [a] -> [a]
+myreverse [] = []
+myreverse (x:xs) = myreverse xs ++ [ x ]
+
+
+ex2 :: IO()
+ex2 = do
+    print "ex2"
+    print $ doubleEveryOther [8,7,6,5]
+    print $ doubleEveryOther [4,9,5,5]
+    print $ doubleEveryOther [1,2,3]
+    print $ doubleEveryOther [0,0]
+
+doubleEveryOther :: [Integer] -> [Integer]
+doubleEveryOther []       = []
+doubleEveryOther (x:[])   = [x]
+doubleEveryOther (x:y:zs) = x : 2*y : doubleEveryOther zs
+
+ex3 ::IO()
+ex3 = do
+    print $ sumDigits [10,5,18,4]
+
+sumDigits :: [Integer] -> Integer
+sumDigits' :: [Integer] -> [Integer]
+sumDigits'' :: [Integer] -> Integer
+sumDigits xs = sumDigits'' $ sumDigits' xs
+sumDigits' [] = [0]
+sumDigits' (x:xs) = toDigits x ++ sumDigits' xs
+sumDigits'' [] = 0
+sumDigits'' (x:xs) = x + sumDigits'' xs
 
