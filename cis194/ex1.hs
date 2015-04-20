@@ -1,7 +1,7 @@
 main :: IO()
 main = do
     print "start"
-    ex3
+    ex4
 
 test :: IO()
 test = do
@@ -52,6 +52,7 @@ doubleEveryOther (x:y:zs) = x : 2*y : doubleEveryOther zs
 ex3 ::IO()
 ex3 = do
     print $ sumDigits [10,5,18,4]
+    print $ sumDigits [16,7,12,5]
 
 sumDigits :: [Integer] -> Integer
 sumDigits' :: [Integer] -> [Integer]
@@ -61,4 +62,12 @@ sumDigits' [] = [0]
 sumDigits' (x:xs) = toDigits x ++ sumDigits' xs
 sumDigits'' [] = 0
 sumDigits'' (x:xs) = x + sumDigits'' xs
+
+ex4 :: IO()
+ex4 = do
+    print $ validate 4012888888881881
+    print $ validate 4012888888881882
+
+validate :: Integer -> Bool
+validate a = sumDigits ( doubleEveryOther ( toDigitsRev a ) ) `mod` 10 == 0
 
