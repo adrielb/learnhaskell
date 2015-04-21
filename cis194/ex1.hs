@@ -1,7 +1,9 @@
+-- http://www.cis.upenn.edu/~cis194/spring13/lectures.html
+
 main :: IO()
 main = do
     print "start"
-    ex4
+    ex5
 
 test :: IO()
 test = do
@@ -71,3 +73,13 @@ ex4 = do
 validate :: Integer -> Bool
 validate a = sumDigits ( doubleEveryOther ( toDigitsRev a ) ) `mod` 10 == 0
 
+-- Towers of Hanoi
+type Peg = String
+type Move = (Peg, Peg)
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi i a b c = [(a, b)]
+
+
+ex5 :: IO()
+ex5 = do
+    print $ hanoi 2 "a" "b" "c"
