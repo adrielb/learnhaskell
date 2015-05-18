@@ -132,5 +132,16 @@ Person "Asdf" "Xcvb" Male
 
 Individual (Person "Asdf" "Xcvb" Male) True
 
+:reload
+
+clientName (GovOrg "Hsadf")
+
+clientName (Individual (Person "Asdf" "Xcvb" Male) True)
+
+companyName (GovOrg "NAOT")
+
+
+
+
 
 

@@ -14,3 +14,17 @@ data Person = Person String String Gender
 -- enumerations
 data Gender = Male | Female | Unknown
   deriving Show
+
+clientName :: Client -> String
+clientName client = case client of
+                      GovOrg name -> name
+                      Company name id person resp -> name
+                      Individual person ads ->
+                        case person of Person fName lName gender -> fName ++ " " ++ lName
+
+clientName' client = case client of
+                       Individual (Person fName lName _) _ -> fName ++ " " ++ lName
+
+companyName :: Client -> String
+companyName client = case client of 
+                        Company name _ _ _ -> name
