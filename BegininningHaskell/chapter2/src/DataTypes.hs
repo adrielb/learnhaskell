@@ -29,3 +29,11 @@ companyName :: Client -> Maybe String
 companyName client = case client of 
                         Company name _ _ _ -> Just name
                         _ -> Nothing
+
+-- BUG: ordered dependent behavior of patterns
+--      if _ was first, infinite recursion
+fibonacci :: Integer -> Integer
+fibonacci n = case n of 
+                0 -> 0
+                1 -> 1
+                _ -> fibonacci (n-1) + fibonacci (n-2)
