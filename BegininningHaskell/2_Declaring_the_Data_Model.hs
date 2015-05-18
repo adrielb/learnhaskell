@@ -122,8 +122,15 @@ null l
 
 :t ("hello", True, if 2 > 3 then 'a' else 'b')
 
+:load src/DataTypes.hs
 
+:module Chapter2.DataTypes
 
+:reload
+
+Person "Asdf" "Xcvb" Male
+
+Individual (Person "Asdf" "Xcvb" Male) True
 
 
 
