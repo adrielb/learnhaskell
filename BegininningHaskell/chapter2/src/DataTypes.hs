@@ -25,6 +25,7 @@ clientName client = case client of
 clientName' client = case client of
                        Individual (Person fName lName _) _ -> fName ++ " " ++ lName
 
-companyName :: Client -> String
+companyName :: Client -> Maybe String
 companyName client = case client of 
-                        Company name _ _ _ -> name
+                        Company name _ _ _ -> Just name
+                        _ -> Nothing

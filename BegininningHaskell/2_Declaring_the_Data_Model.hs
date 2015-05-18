@@ -140,6 +140,9 @@ clientName (Individual (Person "Asdf" "Xcvb" Male) True)
 
 companyName (GovOrg "NAOT")
 
+let Just name = companyName (GovOrg "QQwer")
+
+
 
 
 
