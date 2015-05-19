@@ -143,8 +143,26 @@ companyName (GovOrg "NAOT")
 let Just name = companyName (GovOrg "QQwer")
 
 
+-- List and Tuples
+:load src/ListsAndTuples.hs
+:module Chapter2.ListsAndTuples
 
+[3,4,2] +++ [9,7]
 
+[] +++ [2,8,334]
 
+[2,8,334] +++ []
+
+:r
+
+sorted [4,3,2,1]
+
+sorted [3,8,12]
+
+:r
+
+maxmin [3]
+
+maxmin [3,4,5,2,1]
 
 
