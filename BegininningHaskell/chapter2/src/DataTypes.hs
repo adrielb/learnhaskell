@@ -37,3 +37,24 @@ fibonacci n = case n of
                 0 -> 0
                 1 -> 1
                 _ -> fibonacci (n-1) + fibonacci (n-2)
+                
+
+data Counts = NumMales Int
+            | NumFemales Int
+            | NumUnknown Int
+
+countGender :: [Client] -> (Int, Int, Int)
+countGender [] = (0,0,0)
+countGender ((Company _ _ (Person _ _ a)   _):xs) =
+    case a of
+      Male -> ( 1 + numMales, numFemales, numUnknown)
+      Female -> ( numMales, 1 + numFemales, numUnknown)
+      Unknown -> ( numMales, numFemales, 1 + numUnknown)
+    where (numMales, numFemales, numUnknown) = countGender xs
+countGender ((Individual  (Person _ _ a)   _):xs) = 
+    case a of
+      Male -> ( 1 + numMales, numFemales, numUnknown)
+      Female -> ( numMales, 1 + numFemales, numUnknown)
+      Unknown -> ( numMales, numFemales, 1 + numUnknown)
+    where (numMales, numFemales, numUnknown) = countGender xs
+

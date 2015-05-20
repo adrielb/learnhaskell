@@ -142,6 +142,14 @@ companyName (GovOrg "NAOT")
 
 let Just name = companyName (GovOrg "QQwer")
 
+:r
+
+let clients = [ Individual (Person "Asdf" "Xcvb" Male) True ,Individual (Person "Asdf" "Xcvb" Female) True ,Individual (Person "Asdf" "Xcvb" Female) True ,Individual (Person "Asdf" "Xcvb" Female) True ]
+
+countGender clients
+
+-- map ,r :w<bar>SlimeSend1 :r<cr>
+
 
 -- List and Tuples
 :load src/ListsAndTuples.hs
