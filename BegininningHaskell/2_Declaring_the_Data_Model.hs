@@ -173,4 +173,33 @@ maxmin [3]
 
 maxmin [3,4,5,2,1]
 
+-- Guards 
+:load Guards.hs
 
+ifibonacci 10
+
+ifibonacci (-10)
+
+ifib 10
+
+ifib (-10)
+
+binom 8 6
+
+multipleOf 9 3
+
+multipleOf 9 2
+
+specialMultiples 45
+
+specialMultiples 120
+
+ackerman 0 3
+
+ackerman 1 0
+
+ackerman 3 3
+
+unzip' [(1,2), (3,4)]
+
+unzip' [(1,2), (3,4), (5,6), (7,8)]
