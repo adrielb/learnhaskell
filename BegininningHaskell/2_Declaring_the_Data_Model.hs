@@ -202,4 +202,20 @@ ackerman 3 3
 
 unzip' [(1,2), (3,4)]
 
-unzip' [(1,2), (3,4), (5,6), (7,8)]
+unzip [(1,2), (3,4), (5,6), (7,8)]
+
+-- View Patterns
+:load src/DataTypes.hs
+:module Chapter2.DataTypes
+
+responsibility (Company "ACME Co." 3 (Person "First" "Last" Unknown) "CEO")
+
+responsibility (GovOrg "FBI")
+
+:set -XViewPatterns
+
+let x = Company "ACME Co." 3 (Person "First" "Last" Unknown) "Director"
+
+specialClient x
+
+

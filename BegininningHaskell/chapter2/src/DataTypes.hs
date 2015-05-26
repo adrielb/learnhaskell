@@ -1,3 +1,4 @@
+{-# LANGUAGE ViewPatterns #-}
 module Chapter2.DataTypes where
 
 data Client = GovOrg String
@@ -57,4 +58,17 @@ countGender ((Individual  (Person _ _ a)   _):xs) =
       Female -> ( numMales, 1 + numFemales, numUnknown)
       Unknown -> ( numMales, numFemales, 1 + numUnknown)
     where (numMales, numFemales, numUnknown) = countGender xs
+
+
+-- View Patterns
+-- (function -> pattern)
+
+responsibility :: Client -> String
+responsibility (Company _ _ _ r) = r
+responsibility _                 = "Unknown"
+
+specialClient :: Client -> Bool
+specialClient (clientName -> "Mr. Alejandro") = True
+specialClient (responsibility -> "Director") = True
+specialClient _                             = False
 
