@@ -1,5 +1,11 @@
 {-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE RecordWildCards #-}
+
+
 module Chapter2.DataTypes where
+import Data.Char
+
 
 data Client = GovOrg String
             | Company String Integer Person String
@@ -71,4 +77,35 @@ specialClient :: Client -> Bool
 specialClient (clientName -> "Mr. Alejandro") = True
 specialClient (responsibility -> "Director") = True
 specialClient _                             = False
+
+-- Records
+-- { name :: type }
+data ClientR = GovOrgR { clientRName :: String }
+             | CompanyR { clientRName :: String
+                        , companyId :: Integer
+                        , person :: PersonR
+                        , duty :: String }
+            | IndividualR { person :: PersonR }
+            deriving Show
+
+data PersonR = PersonR { firstName :: String
+                       , lastName :: String
+                       } deriving Show
+
+greet :: ClientR -> String
+-- greet IndividualR { person = PersonR { firstName = fn } } 
+--                                       = "Hi, " ++ fn
+-- greet CompanyR    { clientRName = c } = "Hello, " ++ c
+-- greet GovOrgR     {}                  = "Welcome"
+
+greet IndividualR { person = PersonR { firstName } } = "Hi, " ++ firstName
+greet CompanyR    {..} = "Hello, " ++ clientRName
+greet GovOrgR     { }  = "Welcome"
+
+nameInCapitals :: PersonR -> PersonR
+nameInCapitals p@(PersonR { firstName = initial:rest } ) =
+    let newName = (toUpper initial):rest
+     in p { firstName = newName }
+nameInCapitals p@(PersonR { firstName = "" }) = p
+
 

@@ -218,4 +218,29 @@ let x = Company "ACME Co." 3 (Person "First" "Last" Unknown) "Director"
 
 specialClient x
 
+-- Records
+IndividualR { person = PersonR { lastName="Smith", firstName="Jown" } }
 
+GovOrgR "NATO"
+
+clientRName ( GovOrgR "NATO" )
+
+-- field names cannot clash with function names
+-- field names can be used on more than one type if all fields have the same type
+:t duty
+
+let x = IndividualR { person = PersonR { lastName="Smith", firstName="Jown" } }
+
+greet x  
+
+-- using record puns
+
+let x = CompanyR { clientRName = "Macrosoft"
+                , companyId = 4
+                , person = PersonR { firstName = "bill" , lastName = "gates" }
+                , duty = "CIE" } 
+
+greet x
+
+-- altering a record
+nameInCapitals (PersonR  { firstName = "john", lastName = "snow" })
