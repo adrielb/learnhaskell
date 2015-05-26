@@ -244,3 +244,10 @@ greet x
 
 -- altering a record
 nameInCapitals (PersonR  { firstName = "john", lastName = "snow" })
+
+--
+-- The Default Values Idiom
+connect' "http://apress.com" connDefault
+
+connect' "http://apress.com" connDefault { connType = UDP }
+

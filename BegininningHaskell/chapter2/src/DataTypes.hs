@@ -108,4 +108,27 @@ nameInCapitals p@(PersonR { firstName = initial:rest } ) =
      in p { firstName = newName }
 nameInCapitals p@(PersonR { firstName = "" }) = p
 
+-- The Default Values Idiom
+data ConnType = TCP | UDP 
+data UseProxy = NoProxy | Proxy String
+data TimeOut  = NoTimeOut | TimeOut Integer
+data Connection = Connection deriving Show
+
+-- connect :: String -> ConnType -> Integer -> UseProxy -> Bool -> Bool -> TimeOut -> Connection
+
+
+-- using records:
+data ConnOptions = ConnOptions { connType :: ConnType
+                               , connSpeed :: Integer
+                               , connProxy :: UseProxy
+                               , connCaching :: Bool
+                               , connKeepAlive :: Bool
+                               , connTimeOut :: TimeOut
+                               }
+connect' :: String -> ConnOptions -> Connection
+connect' url options = Connection
+
+-- create a constant that includes some sensible defaults
+connDefault :: ConnOptions
+connDefault = ConnOptions TCP 0 NoProxy False False NoTimeOut
 
