@@ -126,7 +126,58 @@ let filterNot f lst = filter (not . f) lst
 
 filterNot filterOnes lst
 
+--
+-- Partial Application of a Function
+let double = map (\x -> x * 2) 
 
+:t double
 
+:t \x -> x * 2
+
+-- as a 'section'
+let double = map (*2)
+
+:t double
+
+map (/2) [1,2,3]
+
+map (2/) [1,2,3]
+
+:t Just
+
+:t ('a':)
+
+-- point-free style - functions are combined without ever mentioning their parameters
+let duplicateOdds list = map (*2) $ filter odd list
+
+duplicateOdds [1,2,3,4,5]
+
+let duplicateOdds = map (*2) . filter odd
+
+duplicateOdds [1,2,3,4,5]
+
+-- combinators
+let uncurry f = \(x,y) -> f x y
+
+let curry f = \x y -> f (x,y)
+
+max 3 2
+
+(uncurry max) (3,2)
+
+-- need to curry max before map application since max requires two arguments
+map (uncurry max) [(1,2), (2,1), (3,4)]
+
+-- *** combinator: performs parallel compostion of two functions
+let f *** g = \(x,y) -> (f x, g y)
+
+(sqrt *** atan) (4,3)
+
+let duplicate x = (x,x)
+
+(sqrt *** atan) (duplicate 4)
+
+-- rewrite 3x + 7(x + 2)
+formula1 = uncurry (+) . ( ( (*7) . (+2) ) *** (*3) ) . duplicate
 
 
