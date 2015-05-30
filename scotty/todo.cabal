@@ -1,0 +1,32 @@
+name:                todo
+version:             0.0.1
+synopsis:            My awesome todo-list app
+homepage:            https://github.com/yourName/repoName
+license:             MIT
+author:              Aditya Bhargava
+maintainer:          you@email.com
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.8
+
+executable todo
+  main-is:             Main.hs
+  -- other-modules:       
+  build-depends:       base ==4.7.*
+                     , wai
+                     , warp
+                     , http-types
+                     , resourcet
+                     , scotty
+                     , text
+                     , bytestring
+                     , blaze-html
+                     , persistent
+                     , persistent-template
+                     , persistent-sqlite 
+                     , monad-logger
+                     , heroku
+                     , transformers
+                     , wai-middleware-static
+                     , wai-extra
+                     , time
