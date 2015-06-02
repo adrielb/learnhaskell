@@ -180,4 +180,44 @@ let duplicate x = (x,x)
 -- rewrite 3x + 7(x + 2)
 formula1 = uncurry (+) . ( ( (*7) . (+2) ) *** (*3) ) . duplicate
 
+--
+if 1 < 2 then error "bzzz" else 1
+
+:load Chapter3/Ranges.hs
+
+Range 3 4
+
+Range 4 2
+
+range 3 4
+
+range 4 2
+
+r (Range 3 1)
+
+prettyRange (Range 2 4)
+
+prettyRange (Range 5 2)
+
+--
+-- Diving into List
+:load Chapter3/Lists.hs
+
+foldr (+) 0 [1,2,3]
+
+let x = MinusInfinity
+
+foldr infMax MinusInfinity [1,2,3]
+
+foldr infMax MinusInfinity $ map Number [1,2,3]
+
+foldr (\x y -> infMax (Number x) y) MinusInfinity [1,2,3]
+
+foldl (+) 0 [1,2,3]
+
+-- 0 - ( 1 - ( 2 - ( 3 ) ) ) = 2
+foldr (-) 0 [1,2,3]
+
+-- ((0 - 1) - 2) - 3 =  -6
+foldl (-) 0 [1,2,3]
 
