@@ -19,4 +19,19 @@ infMax (Number a) (Number b) = Number (max a b)
 -- foldl _ initial []     = initial
 -- foldl f initial (x:xs) = foldl f (f initial x) xs
 
+product' :: [Int] -> Int
+product' [] = 1
+product' (x:xs) = x * (product' xs)
 
+product'' :: [Int] -> Int
+product'' = foldr (*) 1
+
+all' :: [Bool] -> Bool
+all' [] = True
+all' (x:xs) = x && (all' xs)
+
+all'' :: [Bool] -> Bool
+all'' = foldr (&&) True
+
+minimumBy :: (Int -> Int) -> [Int] -> Int
+minimumBy f lst = snd . (foldr1 min) $ map (\v -> (f v, v)) lst

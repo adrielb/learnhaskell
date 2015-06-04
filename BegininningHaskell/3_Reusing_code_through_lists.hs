@@ -221,3 +221,25 @@ foldr (-) 0 [1,2,3]
 -- ((0 - 1) - 2) - 3 =  -6
 foldl (-) 0 [1,2,3]
 
+-- exercises
+product' [1,2,3,4]
+
+product'' [1,2,3,4]
+
+all' [True, True, True, True]
+
+all' [True, True, False, True]
+
+all'' [True, True, True, True]
+
+all'' [True, True, False, True]
+
+minimumBy (\x -> -x) [1,2,3]
+
+:t foldr1
+
+max (-1, 3) (1, -1)
+
+:t max
+
+

@@ -1,2 +1,2 @@
-nmap <leader>m :wall<BAR>SlimeSend1 :r<CR>
+nmap <leader>r :wall<BAR>SlimeSend1 :r<CR>
 
