@@ -16,7 +16,8 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Chapter3.MoreModules, Chapter3.Lists
+  exposed-modules:     Chapter3.MoreModules, Chapter3.Lists,
+                        Chapter2.DataTypes
   -- other-modules:       
   other-extensions:    ViewPatterns, NamedFieldPuns, RecordWildCards
   build-depends:       base >=4.7 && <4.8

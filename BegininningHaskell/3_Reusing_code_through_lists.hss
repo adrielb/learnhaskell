@@ -242,4 +242,101 @@ max (-1, 3) (1, -1)
 
 :t max
 
+--
+-- Lists and Predicates
+:load Chapter3/Lists.hs
+
+import Data.List
+
+let x = [1,-2,3,-4,-5,6]
+
+partition (>0) x
+
+find (>0) x
+
+find (>9) x
+
+let x = [Individual (Person "F1" "L1" Male) True, GovOrg "AAA" ]
+
+skipUntilGov x
+
+:set -XLambdaCase
+
+map (\case { 
+    GovOrg {} -> False;
+    _         -> True 
+    } ) x
+
+takeWhile (/= "stop") ["h", "s", "stop", "recv"]
+
+span (/= "stop") ["h", "s", "stop", "recv"]
+
+break (== "stop") ["h", "s", "stop", "recv"]
+
+isIndividual `map` x 
+
+checkIndividualAnalytics x
+
+-- binary predicates
+:t nub
+
+:t nubBy
+
+let x = [0,1,2,3,4,5]
+
+nubBy (\x y -> (even x && even y) || (odd x && odd y)) x
+
+even `map` x
+
+let x = [1,2,1,1,3,2,4,1]
+
+nubBy (==) x
+
+nub x
+
+-- \\ set difference
+:{
+let x1 = [1,2,3,4]
+    x2 = [2,3,5]
+in (x1 `union` x2, x1 `intersect` x2, x1 \\ x2)
+:}
+
+elem 2  [1,4,2]
+elem 20 [1,4,2]
+
+elem' :: a -> [a] -> Bool
+elem' e []     = False
+elem' e (e:xs) = True
+elem' e (x:xs) = True
+
+find (<3) [4,2,3,4]
+
+elem' :: Int -> [Int] -> Bool
+
+:{
+let elem' e lst = let maybeFound = find (==e) lst
+               in case maybeFound of 
+                    Nothing -> False
+                    Just _  -> True
+:}
+
+elem' 3 [3,2,1]
+
+elem' 5 [3,2,1]
+
+:{
+let listOfClients = [ IndividualR 2 (PersonR "H. G." "Wells") , GovOrgR 3 "NTTF" , CompanyR 4 "Wormhole Inc." (PersonR "Karl" "Schwarzschild") "Physicist" , IndividualR 5 (PersonR "Doctor" "") , IndividualR 6 (PersonR "Sarah" "Jane") ]
+:}
+ 
+sortBy compareClient listOfClients
+
+sort [1,2,-3,4]
+
+compare (1,2) (1,1)
+
+compare "hello" "hello world"
+
+compare "this" "that"
+
+
 
