@@ -338,5 +338,18 @@ compare "hello" "hello world"
 
 compare "this" "that"
 
+-- 
+-- Lists Containing Tuples
+enum 3 10
+
+withPositions ["a", "b", "c"]
+
+let x = [ ("France", "Paris"), ("Spain", "Madrid"), ("Portugal", "Lisbon") ]
+
+unzip x
+
+lookup "Spain" x
+
+lookup "UK" x
 
 

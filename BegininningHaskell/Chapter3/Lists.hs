@@ -71,4 +71,10 @@ compareClient _ (IndividualR {}) = LT
 complareClient c1 c2             = compare (clientName c1) (clientName c2)
 
 
+enum :: Int -> Int -> [Int]
+enum a b | a > b = []
+enum a b         = a : enum (a+1) b
 
+withPositions :: [a] -> [(Int,a)]
+-- withPositions list = zip (enum 1 $ length list) list
+withPositions list = zip [1 .. length list] list
