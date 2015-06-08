@@ -100,4 +100,21 @@ companyAnalytics clients = [ (the clientName, zip person duty)
                            , then sortWith by length client
                            ]
 
+filterAsFold :: (a -> Bool) -> [a] -> [a]
+filterAsFold p = foldr (\x l -> 
+                       if p x 
+                       then x:l 
+                       else l) []
+
+mapAsFold :: (a -> b) -> [a] -> [b]
+mapAsFold f = foldr (\x l -> f x : l) []
+
+enumUnfold :: Int -> Int -> [Int]
+enumUnfold n m = unfoldr (\x -> if x > m 
+                         then Nothing 
+                         else Just (x, x+2)) n
+
+minSort :: [Integer] -> [Integer]
+minSort = unfoldr (\case [] -> Nothing
+                         xs -> Just (m, delete m xs) where m = minimum xs)
 

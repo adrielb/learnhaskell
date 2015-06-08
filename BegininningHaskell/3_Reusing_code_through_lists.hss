@@ -404,6 +404,21 @@ companyAnalytics listOfClients
 
 [ x*y | x <- [1,2,3] | y <- [1,2,3] ]
 
+--
+-- Haskell Origami
 
+-- universal propertry
+g        = foldr f v
+g []     = v
+g (x:xs) = f x (g xs)
 
+filterAsFold even [1,2,3,4,5]
+
+mapAsFold even [1,2,3,4,5]
+
+:t unfoldr
+
+enumUnfold 3 7
+
+minSort [8,3,1,9,0]
 
