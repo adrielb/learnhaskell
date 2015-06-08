@@ -352,4 +352,58 @@ lookup "Spain" x
 
 lookup "UK" x
 
+--
+-- List Comprehension
+:t doubleOdds 
+
+doubleOdds [1..100]
+
+let listOfClients = [ Individual 2 (Person "H. G." "Wells") , GovOrg 3 "NTTF" , Company 4 "Wormhole Inc." (Person "Karl" "Schwarzschild") "Physicist" , Individual 5 (Person "Doctor" "") , Individual 6 (Person "Sarah" "Jane") ]  
+
+[clientName x | x@(GovOrg _ _) <- listOfClients ]
+
+[(x,y,x*y) | x <- [1..4], y <- [1..10] ]
+
+[(x,y) | x <- [0..6], y <- [x..6] ]
+
+import Data.Char
+
+[ toUpper c | s <- ["This","is","a","list"], c <- ' ':s]
+
+[ sqrt v | (x,y) <- [(1,2), (3,8)], let v = x*x + y*y ]
+
+[ (x,y) | x <- [1..6], y <- [1..6], x <= y]
+
+:set -XTransformListComp
+
+[x*y | x <- [-1,1,-2], y <- [1,2,3], then reverse]
+
+import GHC.Exts
+
+:t sortWith
+
+[x*y | x <- [-1,1,2], y <- [1,2,3], then sortWith by x]
+
+:{
+    [ (the p, m) | x <- [-1,1,-2]
+                 , y <- [1,2,3]
+                 , let m = x*y
+                 , let p = m > 0
+                 , then group by p using groupWith ]
+:}
+
+the [1,1,1,1]
+
+the [1,1,3,1]
+
+companyAnalytics listOfClients
+
+:set -XParallelListComp
+
+[ x*y | x <- [1,2,3], y <- [1,2,3] ]
+
+[ x*y | x <- [1,2,3] | y <- [1,2,3] ]
+
+
+
 

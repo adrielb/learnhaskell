@@ -1,10 +1,19 @@
-{-# LANGUAGE LambdaCase, ViewPatterns, NamedFieldPuns #-}
-
+{-# LANGUAGE LambdaCase, ViewPatterns, NamedFieldPuns, RecordWildCards, 
+TransformListComp #-}
 module Chapter3.Lists where
 
-import Chapter2.DataTypes
 import Data.List
+import GHC.Exts
    
+data Client i = GovOrg  { clientId :: i, clientName :: String }
+              | Company { clientId :: i, clientName :: String
+                         , person :: Person, duty :: String }
+              | Individual { clientId :: i, person :: Person }
+              deriving Show
+
+data Person = Person { firstName :: String, lastName  :: String }
+              deriving Show
+
 -- foldr :: (a -> b -> b) -> b -> [a] -> b
 -- foldr f initial [] = initial
 -- foldr f initial (x:xs) = f x (foldr f initial xs)
@@ -44,17 +53,17 @@ minimumBy f lst = snd . (foldr1 min) $ map (\v -> (f v, v)) lst
 bothFilters :: (a -> Bool) -> [a] -> ([a], [a])
 bothFilters p list = (filter p list, filter (not.p) list)
 
-skipUntilGov :: [Client] -> [Client]
+skipUntilGov :: [Client a] -> [Client a]
 skipUntilGov = dropWhile ( \case { 
                          GovOrg {} -> False;
                          _         -> True 
                          } )
 
-isIndividual :: Client -> Bool
+isIndividual :: Client a -> Bool
 isIndividual (Individual {}) = True
 isIndividual _               = False
 
-checkIndividualAnalytics :: [Client] -> (Bool, Bool)
+checkIndividualAnalytics :: [Client a] -> (Bool, Bool)
 checkIndividualAnalytics cs = (any isIndividual cs, not $ all isIndividual cs)
 
 elem' :: Int -> [Int] -> Bool
@@ -63,11 +72,11 @@ elem' e lst = let maybeFound = find (==e) lst
                     Nothing -> False
                     Just _  -> True
 
-compareClient :: ClientR -> ClientR -> Ordering
-compareClient (IndividualR { person = p1 }) (IndividualR { person = p2 }) 
+compareClient :: Client a -> Client a -> Ordering
+compareClient (Individual { person = p1 }) (Individual { person = p2 }) 
                                 = compare (firstName p1) (firstName p2)
-compareClient (IndividualR {}) _ = GT
-compareClient _ (IndividualR {}) = LT
+compareClient (Individual {}) _ = GT
+compareClient _ (Individual {}) = LT
 complareClient c1 c2             = compare (clientName c1) (clientName c2)
 
 
@@ -78,3 +87,17 @@ enum a b         = a : enum (a+1) b
 withPositions :: [a] -> [(Int,a)]
 -- withPositions list = zip (enum 1 $ length list) list
 withPositions list = zip [1 .. length list] list
+
+doubleOdds :: [Integer] -> [Integer]
+-- doubleOdds list = map (*2) $ filter odd list
+doubleOdds list = [2*x | x <- list, odd x]
+
+companyAnalytics :: [Client a] -> [(String, [(Person,String)])]
+companyAnalytics clients = [ (the clientName, zip person duty)
+                           | client@(Company {..}) <- clients
+                           , then sortWith by duty
+                           , then group by clientName using groupWith
+                           , then sortWith by length client
+                           ]
+
+
