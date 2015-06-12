@@ -1,0 +1,106 @@
+-- 4. Using Containers and Type Classes
+:load Chapter4/src/Containers.hs
+
+import qualified Data.Map as M
+
+:t M.map
+
+-- create maps either with empty or singleton
+M.empty
+
+M.singleton "hello" 3
+
+M.fromList [("hello", 1), ("bye",2), ("hello",3)]
+
+:t M.insertWith
+:t M.insertWithKey
+
+:{
+let m1 = M.singleton "hello" 3
+    m2 = M.insert "bye" 2 m1
+    m3 = M.insert "hello" 5 m2
+    m4 = M.insertWith (+) "hello" 7 m3
+ in (m1,m2,m3,m4) 
+:}
+
+
+let x = [("hello", 3), ("bye", 4)]
+
+let mymap = M.fromList x
+
+-- testing if map is empty
+:t M.null
+
+M.null M.empty
+
+M.null $ mymap
+
+-- test membership
+:t M.member
+
+M.member "hello" mymap
+
+M.lookup "hello" mymap
+
+M.lookup "welcome" mymap
+
+M.findWithDefault 0 "Welcome" mymap
+
+M.delete "hello" mymap
+
+M.adjust (+7) "hello" mymap
+
+-- alter() subsumes insert() / delete() / adjust()
+:t M.alter
+
+M.alter (\(Just v) -> Just (v+7)) "hello" mymap
+
+:t M.insert
+
+:set -XLambdaCase
+
+insert :: k -> a -> M.Map k a -> M.Map k a
+
+:{
+let insert key val map = let alterfuncion = (\case _ -> Just val)
+                          in  M.alter alterfuncion key map
+:}
+insert "welcome" 20 mymap
+
+:t M.delete
+
+:{
+let delete key map = let alterfuncion = (\case _ -> Nothing)
+                      in  M.alter alterfuncion key map
+:}
+delete "hello" mymap
+
+delete "HI" mymap
+
+:t M.adjust
+
+:{
+let adjust func key map = let alterfuncion = \case Just v -> Just (func v)
+                                                   Nothing -> Nothing 
+                           in M.alter alterfuncion key map
+:}
+adjust (\x -> x*20) "hello" mymap
+
+-- union / intersection / difference
+:{
+    let m1 = M.fromList [("hello", 3), ("bye", 4)]
+        m2 = M.fromList [("hello", 5), ("welcome", 6)]
+     in (m1 `M.union` m2,
+         M.intersectionWith (-) m1 m2)
+:}
+
+:{
+let m = M.fromList [("hi",3),("bye",4)] 
+ in (M.map (*2) m,
+     M.foldr (+) 0 m)
+:}
+
+
+
+
+
