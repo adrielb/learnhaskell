@@ -156,6 +156,17 @@ Prelude concatMap :: (a -> [b]) -> [a] -> [b]
 Prelude       map ::   (a -> b) -> [a] -> [b]
 map
 
+--
+-- Graphs
+graphFromEdges timeMachineGraph
+
+:t timeMachinePrecedence
+
+:{
+    let (g, v, _) = timeMachinePrecedence
+     in map (\x -> let (k, _, _) = v x in k) $ topSort g
+:}
+
 
 
 
