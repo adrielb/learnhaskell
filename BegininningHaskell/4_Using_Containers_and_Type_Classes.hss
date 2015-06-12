@@ -137,6 +137,28 @@ let x = [ GovOrg { clientId = 1, clientName = "ABS" }
 
 :t x
 
+--
+-- Trees
+import Data.Tree
+
+preOrder show pictureTree
+
+flatten pictureTree
+
+levels pictureTree
+
+fmap (*2) pictureTree
+
+Data.Foldable.foldr (+) 0 pictureTree
+
+concatMap 
+Prelude concatMap :: (a -> [b]) -> [a] -> [b]
+Prelude       map ::   (a -> b) -> [a] -> [b]
+map
+
+
+
+
 
 
 
