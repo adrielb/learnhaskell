@@ -100,6 +100,42 @@ let m = M.fromList [("hi",3),("bye",4)]
      M.foldr (+) 0 m)
 :}
 
+--
+-- Sets
+import qualified Data.Set as S
+
+-- creation from empty or singleton
+S.insert "welcome" $ S.singleton "hello"
+
+S.fromList ["hello", "bye", "hello"]
+
+S.toList $ S.fromList ["dup","bom","dup"]
+
+:{
+    let set1 = S.insert "welcome" $ S.singleton "hello"
+        set2 = S.fromList ["hello","bye"]
+     in ( set1 `S.intersection` set2
+        , "welcome" `S.member` set1
+        , S.map length set2 )
+:}
+
+-- exercise
+:load ./Chapter4/src/Containers.hs
+
+:{
+let x = [ GovOrg { clientId = 1, clientName = "ABS" } 
+        , Company { clientId = 2
+                  , clientName = "qwer"
+                  , duty = "CEO"
+                  , person = Person { firstName = "fname"
+                                    , lastName = "lname" }}
+        , Individual { clientId = 3
+                     , person = Person { firstName = "a"
+                                       , lastName = "b" } }
+        ]
+:}
+
+:t x
 
 
 
