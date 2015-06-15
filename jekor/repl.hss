@@ -63,3 +63,31 @@ let ghciEscapeShellArg arg = "'" ++ concatMap (\c -> if c == '\'' then "'\"'\"'"
 import System.Exit
 
 :search remove
+
+:search basename
+
+System.FilePath.replaceBaseName "hello.o" "default"
+
+System.FilePath.replaceBaseName "redo" "default"
+
+:search extension
+
+-- order of operations: concat vs function application
+System.FilePath.replaceBaseName "hello.o" "default" ++ ".do"
+
+:info (++)
+
+:info ($)
+
+:search exist
+
+-- head is unsafe when given empty list
+:! ./redo missing
+
+head []
+
+
+
+
+
+
