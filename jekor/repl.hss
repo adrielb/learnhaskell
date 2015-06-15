@@ -1,0 +1,17 @@
+import System.Process
+
+:t shell
+
+:t CreateProcess
+
+:info CreateProcess
+
+:info createProcess
+
+:t createProcess . shell
+
+createProcess $ shell "true"
+
+createProcess $ shell "sh redo.do"
+
+
