@@ -32,5 +32,34 @@ _result
 
 :continue
 
+import System.Environment
 
+:info System.Environment.getArgs
 
+:def search return . (":! hoogle " ++)
+
+:search getArgs
+
+:script /home/abergman/.ghc/ghci.conf
+
+:{
+let ghciEscapeShellArg arg = "'" ++ concatMap (\c -> if c == '\'' then "'\"'\"'" else [c]) arg ++ "'"
+:}
+:def! search return . (":! hoogle --color " ++) . ghciEscapeShellArg
+:def! doc    return . (":! hoogle --info " ++) . ghciEscapeShellArg
+
+:search getArgs
+
+:doc getArgs
+
+:search rename
+
+:doc waitForProcess
+
+:info ExitCode
+
+:doc ExitCode
+
+import System.Exit
+
+:search remove
