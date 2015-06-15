@@ -14,4 +14,23 @@ createProcess $ shell "true"
 
 createProcess $ shell "sh redo.do"
 
+:step
+
+:step main
+
+:load *redo
+
+_result
+
+:print _result
+
+-- unevaluated _t1, need to force evaluation
+
+:force _result
+
+:break 5
+
+:continue
+
+
 
