@@ -88,6 +88,13 @@ head []
 
 ./redo README.txt
 
+words "the quick brown fox"
+
+unwords ["the",">","brown","fox"]
+
+Data.Maybe.listToMaybe [1..10]
+
+Data.Maybe.listToMaybe []
 
 
 
