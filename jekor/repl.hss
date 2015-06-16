@@ -86,6 +86,8 @@ System.FilePath.replaceBaseName "hello.o" "default" ++ ".do"
 
 head []
 
+./redo README.txt
+
 
 
 
