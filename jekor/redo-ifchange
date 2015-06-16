@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo $REDO_TARGET $@ 1>&2
+

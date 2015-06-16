@@ -1,12 +1,19 @@
+{-# LANGUAGE StandaloneDeriving #-}
 import Control.Monad (filterM, liftM)
+import Data.Map.Lazy (insert,fromList,toList,adjust)
 import Data.Maybe (listToMaybe)
 import Debug.Trace (trace, traceShow)
 import System.Directory (renameFile,removeFile,doesFileExist)
-import System.Environment (getArgs)
+import System.Environment (getArgs, getEnvironment)
 import System.Exit (ExitCode(..))
 import System.FilePath (hasExtension, replaceBaseName, takeBaseName)
 import System.IO (hPutStrLn, stderr)
-import System.Process (createProcess, waitForProcess, shell)
+import System.Process (createProcess, waitForProcess, shell, CreateProcess(..),
+                        StdStream(..), CmdSpec(..))
+
+deriving instance Show CreateProcess
+deriving instance Show StdStream
+deriving instance Show CmdSpec
 
 traceShow' arg = traceShow arg arg
 
@@ -18,7 +25,9 @@ redo target = maybe printMissing redo' =<< redoPath target
     where 
         redo' :: FilePath -> IO ()
         redo' path = do
-            (_,_,_,ph) <- createProcess $ shell $ cmd $ path
+            oldEnv <- getEnvironment
+            let newEnv = toList $ adjust (++":.") "PATH" $ insert "REDO_TARGET" target $ fromList oldEnv
+            (_,_,_,ph) <- createProcess $ traceShow' $ (shell $ cmd path) {env = Just newEnv}
             exit <- waitForProcess ph 
             case traceShow' exit of
                 ExitSuccess      -> do renameFile tmp target

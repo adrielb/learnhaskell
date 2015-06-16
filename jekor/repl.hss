@@ -96,7 +96,19 @@ Data.Maybe.listToMaybe [1..10]
 
 Data.Maybe.listToMaybe []
 
+import Data.Trace
 
+:browse Data.Trace
+
+:browse Data.List
+
+import System.Process
+
+:info CreateProcess
+
+getEnvironment
+
+:type getEnvironment
 
 
 
