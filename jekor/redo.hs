@@ -8,9 +8,7 @@ import System.Process (createProcess, waitForProcess, shell)
 import Debug.Trace
 
 main :: IO ()
-main = do
-    args <- getArgs
-    mapM_ redo args
+main = mapM_ redo =<< getArgs
 
 redo :: String -> IO ()
 redo target = do
