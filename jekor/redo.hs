@@ -1,20 +1,30 @@
-import Control.Monad (filterM, liftM)
+{-# LANGUAGE ScopedTypeVariables #-}
+import Control.Exception (catch,IOException)
+import Control.Monad (filterM, liftM, unless)
 import Data.Map.Lazy (insert,fromList,toList,adjust)
 import Data.Maybe (listToMaybe)
-import System.Directory (renameFile,removeFile,doesFileExist)
+import Data.Typeable (typeOf)
+import Debug.Trace (trace, traceShow)
+import GHC.IO.Exception (IOErrorType(..))
+import System.Directory (renameFile,removeFile,doesFileExist,getDirectoryContents)
 import System.Environment (getArgs, getEnvironment)
 import System.Exit (ExitCode(..))
-import System.FilePath (hasExtension, replaceBaseName, takeBaseName)
+import System.FilePath (hasExtension, replaceBaseName, takeBaseName, (</>))
 import System.IO (hPutStrLn, stderr)
+import System.IO.Error (ioeGetErrorType)
 import System.Process (createProcess, waitForProcess, shell, CreateProcess(..),
                         StdStream(..), CmdSpec(..))
 
+
+traceShow' arg = traceShow arg arg
 
 main :: IO ()
 main = mapM_ redo =<< getArgs
 
 redo :: String -> IO ()
-redo target = maybe printMissing redo' =<< redoPath target
+redo target = do
+    upToDate' <- upToDate target
+    unless upToDate' $ maybe printMissing redo' =<< redoPath target
     where 
         redo' :: FilePath -> IO ()
         redo' path = do
@@ -36,3 +46,16 @@ redoPath target = listToMaybe `liftM` filterM doesFileExist candidates
          if hasExtension target
            then [replaceBaseName target "default" ++ ".do"]
            else []
+
+upToDate :: String -> IO (Bool)
+upToDate target = catch 
+    (do deps <- getDirectoryContents depDir
+        all id `liftM` mapM depUpToDate deps)
+    (\(e :: IOException) -> return False)
+    where depDir = ".redo" </> target
+          depUpToDate :: FilePath -> IO (Bool)
+          depUpToDate dep = catch 
+            (do oldMD5 <- traceShow' `liftM` readFile (depDir </> dep)
+                return False)
+            (\e -> return (ioeGetErrorType e == InappropriateType))
+          

@@ -110,5 +110,15 @@ getEnvironment
 
 :type getEnvironment
 
+import System.Directory
 
+:browse System.Directory
+
+getDirectoryContents ".redo/redo/"
+
+:t all
+
+all id [True, True, False]
+
+all id []
 
