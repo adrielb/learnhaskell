@@ -122,3 +122,16 @@ all id [True, True, False]
 
 all id []
 
+cabal install PureMD7
+
+cabal repl
+
+import Data.Digest.Pure.MD5
+
+:t md5
+
+import Control.Monad
+ 
+md5 `liftM` Data.ByteString.Lazy.readFile "redo.hs"
+
+
