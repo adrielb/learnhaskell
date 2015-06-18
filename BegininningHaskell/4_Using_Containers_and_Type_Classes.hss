@@ -167,9 +167,45 @@ graphFromEdges timeMachineGraph
      in map (\x -> let (k, _, _) = v x in k) $ topSort g
 :}
 
+path timeMachineTravel 1302 917
+
+reachable timeMachineTravel 1302
+
+filter (\(Node {subForest=s}) -> s /= []) $ scc timeMachineTravel
+
+map flattenSCC $ stronglyConnComp timeMachineGraph
 
 
+--
+-- Ad Hoc Polymorphism: Type Classes
+:t M.insert
+
+-- Declaring type classes
+class ClassName variable where
+    oneFunction :: oneType
+    otherFunction :: otherType
+
+:load ./Chapter4/src/TypeClasses.hs
+
+:t name
+
+:t initial
+
+-- Declaring instance of a type class
+instance ClassName Type where
+    oneFunction = undefined -- implementation
+    otherFunction = undefined -- implementation
+
+let x = GovOrg { clientId = 1, clientName = "ASDF" }
 
 
+-- fails, cant infer type to dispatch correct 'read'
+read "Person { firstName = \"A\", lastName = \"S\" }" 
 
+read "Person { firstName = \"A\", lastName = \"S\" }" :: Person
+
+:t read . show
+
+--
+-- Built-in Type Classes
 
