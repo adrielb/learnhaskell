@@ -1,5 +1,7 @@
-run: ./foldr_foldl.hs.x
+run: typed_holes.hs.x
 	./$<
+
+# foldr_foldl.hs.x
 
 %.hs.x: %.hs
 	ghc -Wall -o $@ $< 
